@@ -22,7 +22,16 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a set of commands using the runners shell
+      - name: Install virtualbox
+        run: sudo apt install virtualbox
+         
+      - name: Download vagrant install executable
+        run: curl -O https://releases.hashicorp.com/vagrant/2.2.6/vagrant_2.2.6_x86_64.deb
+        
+      - name: Install vagrant
+        run: sudo apt install ./vagrant_2.2.6_x86_64.deb
+      
       - name: Validating vagrant file
         run: |
+          vagrant --version
           vagrant validate
