@@ -16,8 +16,8 @@ Vagrant.configure("2") do |config|
       {
         :hostname => "WebLb",
         :box => "ubuntu/bionic64",
-        :ip => "192.168.56.102",
-        :ssh_port => '172.16.1.52'
+        :ip => "172.16.1.52",
+        :ssh_port => '2202'
       }
     ]
 
@@ -28,8 +28,11 @@ Vagrant.configure("2") do |config|
         node.vm.network :private_network, ip: computer[:ip]
         node.vm.network "forwarded_port", guest: 22, host: computer[:ssh_port], id: "ssh"
         node.vm.synced_folder "../data", "/home/vagrant/data"
-        node.vm.provision "file", source: "./copiedfile.txt", destination: "/home/vagrant/copiedfile.txt"
-
+        #node.vm.provision "file", source: "./copiedfile.txt", destination: "/home/vagrant/copiedfile.txt"
+        node.vm.provision "ansible" do |ansible|
+            ansible.playbook = "main.yml"
+        end
+        
         node.vm.provider :virtualbox do |vb|
           vb.customize ["modifyvm", :id, "--memory", 1024]
           vb.customize ["modifyvm", :id, "--cpus", 2]
