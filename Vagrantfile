@@ -27,7 +27,7 @@ Vagrant.configure("2") do |config|
         node.vm.hostname = computer[:hostname]
         node.vm.network :private_network, ip: computer[:ip]
         node.vm.network "forwarded_port", guest: 22, host: computer[:ssh_port], id: "ssh"
-        node.vm.synced_folder "../data", "/home/vagrant/data"
+        #node.vm.synced_folder "../data", "/home/vagrant/data"
         #node.vm.provision "file", source: "./copiedfile.txt", destination: "/home/vagrant/copiedfile.txt"
         node.vm.provision "ansible" do |ansible|
             ansible.playbook = "main.yml"
