@@ -1,0 +1,16 @@
+---
+- hosts: webstack
+  become: true
+  tasks:
+    - name: Configure dns server for package manager issue
+      shell: echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf > /dev/null
+
+- hosts: loadbalancer
+  become: true
+  roles:
+    - role: nginx
+
+- hosts: webservers
+  become: true
+  roles:
+    - role: web-app

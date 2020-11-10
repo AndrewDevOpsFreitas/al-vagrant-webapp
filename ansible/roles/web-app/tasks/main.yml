@@ -1,0 +1,20 @@
+---
+# - name: Install python/pip packages for app
+#   apt:
+#     name: "{{ item }}"
+#     state: present
+#     update_cache: yes
+#     install_recommends: yes
+#   with_items: "{{ web-app-packages }}"
+
+- name: Install python/pip packages for app
+  apt:
+    pkg:
+    - python
+    - python-pip
+    state: present
+    update_cache: yes
+    install_recommends: yes
+
+- name: Run python app
+  command: nohup python /vagrant/webapp.py > /tmp/output.log &

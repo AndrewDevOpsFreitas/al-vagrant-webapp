@@ -1,0 +1,33 @@
+---
+- name: Install nginx
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+    install_recommends: yes
+
+- name: Configure ufw
+  shell: |
+    ufw --force enable
+    ufw allow 'Nginx HTTP'
+    ufw allow 'OpenSSH'
+
+- name: Configure nginx.conf
+  template:
+    src: nginx.conf.j2
+    dest: "/etc/nginx/nginx.conf"
+
+- name: Configure conf.d
+  template:
+    src: al-vagrant-webapp.com.conf.j2
+    dest: "/etc/nginx/conf.d"
+
+- name: Add static html page
+  template:
+    src: al-vagrant-webapp.com.j2
+    dest: "/var/www/al-vagrant-webapp.com"
+
+- name: Restart nginx service
+  systemd:
+    state: restarted
+    name: nginx
