@@ -1,0 +1,17 @@
+upstream al-vagrant-webapp {
+    server Web1:8000;
+    server Web2:8000;
+}
+
+server {
+    listen 80;
+    server_name al-vagrant-webapp.com;
+
+    location /static {
+        root /var/www/al-vagrant-webapp.com;
+    }
+
+    location / {
+        proxy_pass http://al-vagrant-webapp;
+    }
+}

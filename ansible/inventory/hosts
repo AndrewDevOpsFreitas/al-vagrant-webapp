@@ -1,0 +1,13 @@
+[control]
+ansible-control
+
+[webservers]
+Web1
+Web2
+
+[loadbalancer]
+WebLb
+
+[webstack:children]
+webservers
+loadbalancer
