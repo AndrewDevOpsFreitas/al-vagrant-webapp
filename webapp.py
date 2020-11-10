@@ -28,6 +28,7 @@ class HelloRequestHandler(BaseHTTPRequestHandler):
                 <p>> Decided to create a 4th host to run ansible instead of using vagrants built-in provisioner to not exclude windows users</p>
                 <h3>Improvements</h3>
                 <p>> Use boxes that already come with the desired services/packages preinstalled to save time on provisioning</p>
+                <p>> Make the automated tests validate more of the code</p>
                 <h3>Compromises</h3>
                 <p>> Functionality of app</p>
             </body>
